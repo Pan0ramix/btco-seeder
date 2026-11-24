@@ -281,6 +281,7 @@ public:
         filter_whitelist.insert(NODE_NETWORK); // x1
         filter_whitelist.insert(NODE_NETWORK | NODE_BLOOM); // x5
         filter_whitelist.insert(NODE_NETWORK | NODE_WITNESS); // x9
+        filter_whitelist.insert(NODE_NETWORK | NODE_WITNESS | NODE_MWEB); // x1000009, BitcoinOil 25.3+
         filter_whitelist.insert(NODE_NETWORK | NODE_WITNESS | NODE_COMPACT_FILTERS); // x49
         filter_whitelist.insert(NODE_NETWORK | NODE_WITNESS | NODE_P2P_V2); // x809
         filter_whitelist.insert(NODE_NETWORK | NODE_WITNESS | NODE_P2P_V2 | NODE_COMPACT_FILTERS); //x849
@@ -546,17 +547,13 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"dnsseed.bluematt.me", "bitseed.xf2.org", "dnsseed.bitcoin.dashjr.org", "seed.bitcoin.sipa.be", "kjy2eqzk4zwi5zd3.onion", ""};
-static const string testnet_seeds[] = {"testnet-seed.alexykot.me",
-                                       "testnet-seed.bitcoin.petertodd.org",
-                                       "testnet-seed.bluematt.me",
-                                       "testnet-seed.bitcoin.schildbach.de",
-                                       ""};
+static const string mainnet_seeds[] = {"stratum.shears.co.uk", "rodb2008.com", ""};
+static const string testnet_seeds[] = {"rodb2008.com", ""};
 static const string *seeds = mainnet_seeds;
 
 // Blocks that good nodes must have in their active chain (from Bitcoin Core's assumeutxo data).
-static constexpr uint256 mainnet_known_block{"000000000000000000010b17283c3c400507969a9c2afd1dcf2082ec5cca2880"}; // height 880000
-static constexpr uint256 testnet_known_block{"00000000000000f4971a7fb37fbdff89315b69a2e1920c467654a382f0d64786"}; // height 4840000
+static constexpr uint256 mainnet_known_block{"82a09ae809f01746e50a9edb6946b477f286a2b169e4bef15472206fb30adbb5"}; // height 157500, first ASERT + MWEB block
+static constexpr uint256 testnet_known_block{}; // none: the BitcoinOil testnet is restarted for rehearsals
 static vector<string> vSeeds;
 
 /** Configuration for the zone file export thread. */
@@ -823,10 +820,10 @@ int main(int argc, char **argv) {
   bool fDNS = true;
   if (opts.fUseTestNet) {
       printf("Using testnet.\n");
-      pchMessageStart[0] = 0x0b;
-      pchMessageStart[1] = 0x11;
-      pchMessageStart[2] = 0x09;
-      pchMessageStart[3] = 0x07;
+      pchMessageStart[0] = 0x27; // BitcoinOil testnet
+      pchMessageStart[1] = 0x7b;
+      pchMessageStart[2] = 0x18;
+      pchMessageStart[3] = 0x26;
       seeds = testnet_seeds;
       fTestNet = true;
   }

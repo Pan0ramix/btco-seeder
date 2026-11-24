@@ -18,7 +18,7 @@
 extern int nMinimumHeight;
 static inline int GetRequireHeight(const bool testnet = fTestNet)
 {
-    return nMinimumHeight ? nMinimumHeight : (testnet ? 500000 : 350000);
+    return nMinimumHeight ? nMinimumHeight : (testnet ? 110 : 157500); // BitcoinOil: past the ASERT + MWEB fork, so 25.2.0 nodes are left out
 }
 
 std::string static inline ToString(const CService &ip) {

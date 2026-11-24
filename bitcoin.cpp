@@ -225,7 +225,8 @@ class CNode {
       if (ReadCompactSize(vRecv) == 1) {
         std::array<std::byte, BLOCK_HEADER_SIZE> header;
         vRecv >> header;
-        ReadCompactSize(vRecv); // Number of transactions (always 0).
+        // BitcoinOil: a merge-mined header is followed by its AuxPoW, so the rest is not read.
+        // The block hash is still the hash of the 80-byte header.
         fMatch = Hash(header) == hashKnownBlock;
       }
       if (!fMatch) return false;

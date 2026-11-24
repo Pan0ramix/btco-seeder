@@ -24,7 +24,7 @@ extern bool fTestNet;
 extern unsigned short nDefaultP2Port;
 static inline unsigned short GetDefaultPort(const bool testnet = fTestNet)
 {
-    return nDefaultP2Port ? nDefaultP2Port : (testnet ? 18333 : 8333);
+    return nDefaultP2Port ? nDefaultP2Port : (testnet ? 29712 : 19712); // BitcoinOil
 }
 
 //
@@ -69,6 +69,8 @@ enum
     NODE_COMPACT_FILTERS = (1 << 6),
     NODE_NETWORK_LIMITED = (1 << 10),
     NODE_P2P_V2 = (1 << 11),
+    // BitcoinOil: MWEB blocks and transactions (from Litecoin).
+    NODE_MWEB = (1 << 24),
 };
 
 /** getdata message type flags */
