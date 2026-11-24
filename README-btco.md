@@ -30,7 +30,7 @@ Tested on Debian 13 (Trixie) against BitcoinOil mainnet.
 ```bash
 sudo apt update
 sudo apt install -y build-essential libssl-dev libboost-dev git dnsutils
-git clone <repository URL> btco-seeder
+git clone https://github.com/Pan0ramix/btco-seeder.git
 cd btco-seeder
 make -j2
 ```
